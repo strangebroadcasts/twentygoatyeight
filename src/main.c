@@ -73,5 +73,6 @@ void main(void)
         }
 
         waitpadup();
+        add_piece(board);
     }
 }
