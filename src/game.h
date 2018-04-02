@@ -3,4 +3,4 @@
 #define MOVE_RIGHT 2
 #define MOVE_DOWN 3
 
-void move(unsigned char *board[], unsigned char direction);
+void move(unsigned char board[4][4], unsigned char direction);

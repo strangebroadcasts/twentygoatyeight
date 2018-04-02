@@ -21,7 +21,7 @@ build: main.gb
 	$(CC) -c -o $@ $<
 
 main.gb: tiles.o main.o game.o
-	$(CC) -o main.gb tiles.o main.o
+	$(CC) -o main.gb tiles.o main.o game.o
 
 clean:
 	rm -f *.o *.lst *.map *.gb *~ *.rel *.cdb *.ihx *.lnk *.sym *.asm

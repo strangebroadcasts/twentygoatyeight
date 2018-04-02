@@ -5,19 +5,145 @@
 
 void test_plain_moves();
 
-int main(int argc, char *argv[])
+int boards_same(unsigned char a[4][4], unsigned char b[4][4])
 {
-    test_plain_moves();
-    printf("All tests complete!\n");
-    return 0;
+    int i, j;
+    for(i = 0; i < 4; i++)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            if(a[i][j] != b[i][j])
+            {
+                return 0;
+            } 
+        }
+    }
+    return 1;
 }
 
-void test_plain_moves() 
+void test_plain_move_right() 
 {
+    printf("Testing movement right...\n");
     unsigned char board[4][4] = {
         {0, 0, 0, 0},
+        {0, 0, 1, 0},
+        {0, 0, 0, 0},
+        {1, 0, 0, 0}
+    };
+    unsigned char target[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 1},
+        {0, 0, 0, 0},
+        {0, 0, 0, 1}
+    };
+    move(board, MOVE_RIGHT);
+    assert(boards_same(board, target));
+}
+
+void test_plain_move_left() 
+{
+    printf("Testing movement left...\n");
+    unsigned char board[4][4] = {
+        {0, 0, 1, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 1}
+    };
+    unsigned char target[4][4] = {
+        {1, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {1, 0, 0, 0}
+    };
+    move(board, MOVE_LEFT);
+    assert(boards_same(board, target));
+}
+
+void test_plain_move_up() 
+{
+    printf("Testing movement up...\n");
+    unsigned char board[4][4] = {
+        {0, 0, 0, 0},
+        {0, 1, 0, 0},
+        {1, 0, 0, 0},
+        {0, 0, 0, 1}
+    };
+    unsigned char target[4][4] = {
+        {1, 1, 0, 1},
         {0, 0, 0, 0},
         {0, 0, 0, 0},
         {0, 0, 0, 0}
     };
+    move(board, MOVE_UP);
+    assert(boards_same(board, target));
 }
+
+void test_plain_move_down() 
+{
+    printf("Testing movement down...\n");
+    unsigned char board[4][4] = {
+        {0, 0, 0, 1},
+        {0, 1, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+    unsigned char target[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 1, 0, 1}
+    };
+    move(board, MOVE_DOWN);
+    assert(boards_same(board, target));
+}
+
+void test_merge_left() 
+{
+    printf("Testing merging left...\n");
+    unsigned char board[4][4] = {
+        {1, 1, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {2, 2, 0, 0}
+    };
+    unsigned char target[4][4] = {
+        {2, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {3, 0, 0, 0}
+    };
+    move(board, MOVE_LEFT);
+    assert(boards_same(board, target));
+}
+
+void test_merge_right() 
+{
+    printf("Testing merging right...\n");
+    unsigned char board[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 1, 1},
+        {0, 0, 0, 0},
+        {0, 0, 4, 4}
+    };
+    unsigned char target[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 2},
+        {0, 0, 0, 0},
+        {0, 0, 0, 5}
+    };
+    move(board, MOVE_RIGHT);
+    assert(boards_same(board, target));
+}
+
+int main(int argc, char *argv[])
+{
+    test_plain_move_left();
+    test_plain_move_right();
+    test_plain_move_up();
+    test_plain_move_down();
+    test_merge_left();
+    test_merge_right();
+    printf("All tests complete!\n");
+    return 0;
+}
+
