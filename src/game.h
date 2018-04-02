@@ -8,5 +8,6 @@
 #define GAME_LOST 2
 
 void move(unsigned char board[4][4], unsigned char direction);
+void reset(unsigned char board[4][4]);
 void add_piece(unsigned char board[4][4]);
 unsigned char game_state(unsigned char board[4][4]);

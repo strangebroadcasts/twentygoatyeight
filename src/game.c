@@ -179,6 +179,18 @@ void add_piece(unsigned char board[4][4])
     }   
 }
 
+void reset(unsigned char board[4][4])
+{
+    unsigned char i, j;
+    for(i = 0; i < 4; i++)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            board[i][j] = 0;
+        }
+    }
+}
+
 unsigned char game_state(unsigned char board[4][4])
 {
     unsigned char i, j;
