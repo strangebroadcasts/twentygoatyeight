@@ -176,6 +176,22 @@ void add_piece(unsigned char board[4][4])
             selectedTile--;
 
         }
+    }   
+}
+
+unsigned char game_state(unsigned char board[4][4])
+{
+    unsigned char i, j;
+    for(i = 0; i < 4; i++)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            if(board[i][j] >= 11)
+            {
+                return GAME_WON;
+            } 
+        }
     }
-    
+
+    return GAME_ONGOING;
 }

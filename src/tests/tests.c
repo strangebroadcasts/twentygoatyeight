@@ -249,6 +249,37 @@ void test_add_piece_full()
     assert(boards_same(board, filled));
 }
 
+void test_game_state_checks() 
+{
+    printf("Testing game state checks...\n");
+    // There are open spaces, and the game can proceed:
+    unsigned char ongoing[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 3},
+        {0, 2, 0, 0},
+        {0, 0, 2, 0}
+    };
+    assert(game_state(ongoing) == GAME_ONGOING);
+
+    // We've hit 2048, and the game is won:
+    unsigned char won[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 11},
+        {0, 2, 0, 0},
+        {0, 0, 2, 0}
+    };
+    assert(game_state(won) == GAME_WON);
+
+    // No moves are possible, and the game is lost:
+    // unsigned char lost[4][4] = {
+    //     {1, 2, 1, 2},
+    //     {2, 1, 2, 1},
+    //     {1, 2, 1, 2},
+    //     {2, 1, 2, 1}
+    // };
+    // assert(game_state(lost) == GAME_LOST);
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -263,6 +294,7 @@ int main(int argc, char *argv[])
     test_sample_board();
     test_add_piece_empty();
     test_add_piece_full();
+    test_game_state_checks();
     printf("All tests complete!\n");
     return 0;
 }
