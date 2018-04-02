@@ -173,6 +173,45 @@ void test_merge_down()
     assert(boards_same(board, target));
 }
 
+void test_sample_board() 
+{
+    printf("Testing some sample moves...\n");
+    unsigned char board[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 1, 0, 2},
+        {0, 3, 0, 2}
+    };
+
+    move(board, MOVE_RIGHT);
+    unsigned char firstTarget[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 1, 2},
+        {0, 0, 3, 2}
+    };
+    assert(boards_same(board, firstTarget));
+
+    move(board, MOVE_DOWN);
+    unsigned char secondTarget[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 1, 0},
+        {0, 0, 3, 3}
+    };
+    assert(boards_same(board, secondTarget));
+
+    move(board, MOVE_RIGHT);
+    unsigned char thirdTarget[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 1},
+        {0, 0, 0, 4}
+    };
+    assert(boards_same(board, thirdTarget));
+}
+
+
 
 int main(int argc, char *argv[])
 {
@@ -184,6 +223,7 @@ int main(int argc, char *argv[])
     test_merge_right();
     test_merge_up();
     test_merge_down();
+    test_sample_board();
     printf("All tests complete!\n");
     return 0;
 }
