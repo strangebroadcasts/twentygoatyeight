@@ -179,7 +179,7 @@ void add_piece(unsigned char board[4][4])
     }   
 }
 
-void reset(unsigned char board[4][4])
+void reset_board(unsigned char board[4][4])
 {
     unsigned char i, j;
     for(i = 0; i < 4; i++)

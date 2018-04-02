@@ -1,12 +1,14 @@
 #include <gb/gb.h>
 #include <gb/drawing.h>
-#include <asm/types.h>
+#include <time.h>
 
 #include "game.h"
 #include "tiles.h"
 
 #define BOARD_START_X 56
 #define BOARD_START_Y 24
+
+unsigned char board[4][4];
 
 void init()
 {
@@ -28,6 +30,9 @@ void init()
         }
     }
 
+    reset_board(board);
+    add_piece(board);
+    add_piece(board);
 }
 
 void draw_board()
@@ -38,9 +43,12 @@ void draw_board()
     {
         for(j = 0; j < 4; j++)
         {
-            set_sprite_tile(idx, TILE_GOAT);
+            // HACK: flip the grid
+            // (should really have consistency between storage
+            // and display)
+            set_sprite_tile(idx, board[j][i] * 4);
             idx++;
-            set_sprite_tile(idx, TILE_GOAT + 2);
+            set_sprite_tile(idx, 2 + board[j][i] * 4);
             idx++;
         }
     }
@@ -48,10 +56,22 @@ void draw_board()
 
 void main(void)
 {
+    unsigned char pad;
     init();
 
-    draw_board();
     while(1) {
+        draw_board();
+        pad = waitpad(0xff);
+        if (pad & J_LEFT) {
+            move(board, MOVE_LEFT);
+        } else if (pad & J_RIGHT) {
+            move(board, MOVE_RIGHT);
+        } else if (pad & J_UP) {
+            move(board, MOVE_UP);
+        } else if (pad & J_DOWN) {
+            move(board, MOVE_DOWN);
+        }
 
+        waitpadup();
     }
 }

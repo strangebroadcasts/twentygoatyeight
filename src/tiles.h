@@ -28,8 +28,4 @@
 /* Start of tile array. */
 extern unsigned char gameTiles[];
 
-#define TILE_START 0
-#define TILE_GOAT 44
-#define TILE_EMPTY 48
-
 /* End of TILES.H */
