@@ -211,6 +211,43 @@ void test_sample_board()
     assert(boards_same(board, thirdTarget));
 }
 
+void test_add_piece_empty() 
+{
+    printf("Testing adding piece to empty board...\n");
+    unsigned char board[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+    unsigned char empty[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+    add_piece(board);
+    assert(!boards_same(board, empty));
+}
+
+void test_add_piece_full() 
+{
+    printf("Testing adding piece to full board...\n");
+    unsigned char board[4][4] = {
+        {1, 1, 1, 1},
+        {1, 1, 1, 1},
+        {1, 1, 1, 1},
+        {1, 1, 1, 1}
+    };
+    unsigned char filled[4][4] = {
+        {1, 1, 1, 1},
+        {1, 1, 1, 1},
+        {1, 1, 1, 1},
+        {1, 1, 1, 1}
+    };
+    add_piece(board);
+    assert(boards_same(board, filled));
+}
 
 
 int main(int argc, char *argv[])
@@ -224,6 +261,8 @@ int main(int argc, char *argv[])
     test_merge_up();
     test_merge_down();
     test_sample_board();
+    test_add_piece_empty();
+    test_add_piece_full();
     printf("All tests complete!\n");
     return 0;
 }
