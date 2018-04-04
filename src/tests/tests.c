@@ -280,6 +280,98 @@ void test_game_state_checks()
     // assert(game_state(lost) == GAME_LOST);
 }
 
+void test_correct_merging_1()
+{
+    printf("Testing merging edge case #1...\n");
+    unsigned char board[4][4] = {
+        {0, 0, 0, 0},
+        {1, 0, 0, 0},
+        {1, 0, 0, 0},
+        {2, 0, 0, 0}
+    };
+
+    unsigned char target[4][4] = {
+        {2, 0, 0, 0},
+        {2, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+
+    move(board, MOVE_UP);
+    assert(boards_same(board, target));
+}
+
+void test_correct_merging_2()
+{
+    printf("Testing merging edge case #2...\n");
+    unsigned char board_down[4][4] = {
+        {1, 0, 0, 0},
+        {1, 0, 0, 0},
+        {2, 0, 0, 0},
+        {2, 0, 0, 0}
+    };
+
+    unsigned char target_down[4][4] = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {2, 0, 0, 0},
+        {3, 0, 0, 0}
+    };
+
+    move(board_down, MOVE_DOWN);
+    assert(boards_same(board_down, target_down));
+
+    unsigned char board_up[4][4] = {
+        {2, 0, 0, 0},
+        {2, 0, 0, 0},
+        {1, 0, 0, 0},
+        {1, 0, 0, 0}
+    };
+
+    unsigned char target_up[4][4] = {
+        {3, 0, 0, 0},
+        {2, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+
+    move(board_up, MOVE_UP);
+    assert(boards_same(board_up, target_up));
+
+    unsigned char board_left[4][4] = {
+        {2, 2, 1, 1},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+
+    unsigned char target_left[4][4] = {
+        {3, 2, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+
+    move(board_left, MOVE_LEFT);
+    assert(boards_same(board_left, target_left));
+
+    unsigned char board_right[4][4] = {
+        {1, 1, 2, 2},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+
+    unsigned char target_right[4][4] = {
+        {0, 0, 2, 3},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+
+    move(board_right, MOVE_RIGHT);
+    assert(boards_same(board_right, target_right));
+} 
 
 int main(int argc, char *argv[])
 {
@@ -295,6 +387,8 @@ int main(int argc, char *argv[])
     test_add_piece_empty();
     test_add_piece_full();
     test_game_state_checks();
+    test_correct_merging_1();
+    test_correct_merging_2();
     printf("All tests complete!\n");
     return 0;
 }

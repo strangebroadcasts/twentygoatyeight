@@ -124,6 +124,9 @@ void merge(unsigned char board[4][4], unsigned char direction)
                 {
                     board[x+1][y] = board[x][y] + 1;
                     board[x][y] = 0;
+                    // hack: if this tile has been merged,
+                    // don't merge it again!
+                    x++;
                 }
             }
         }
