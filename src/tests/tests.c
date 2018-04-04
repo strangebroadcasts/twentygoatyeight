@@ -271,13 +271,13 @@ void test_game_state_checks()
     assert(game_state(won) == GAME_WON);
 
     // No moves are possible, and the game is lost:
-    // unsigned char lost[4][4] = {
-    //     {1, 2, 1, 2},
-    //     {2, 1, 2, 1},
-    //     {1, 2, 1, 2},
-    //     {2, 1, 2, 1}
-    // };
-    // assert(game_state(lost) == GAME_LOST);
+    unsigned char lost[4][4] = {
+        {1, 2, 1, 2},
+        {2, 1, 2, 1},
+        {1, 2, 1, 2},
+        {2, 1, 2, 1}
+    };
+    assert(game_state(lost) == GAME_LOST);
 }
 
 void test_correct_merging_1()

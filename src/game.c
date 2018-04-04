@@ -196,7 +196,8 @@ void reset_board(unsigned char board[4][4])
 
 unsigned char game_state(unsigned char board[4][4])
 {
-    unsigned char i, j;
+    unsigned char i, j, openSpot;
+    openSpot = 0;
     for(i = 0; i < 4; i++)
     {
         for (j = 0; j < 4; j++)
@@ -204,9 +205,34 @@ unsigned char game_state(unsigned char board[4][4])
             if(board[i][j] >= 11)
             {
                 return GAME_WON;
+            }
+            if(board[i][j] == 0)
+            {
+                openSpot = 1;
             } 
         }
     }
+    if (openSpot) {
+        return GAME_ONGOING;
+    }
 
-    return GAME_ONGOING;
+    // On both axes,
+    // check whether two adjacent pieces have the same value.
+    // If no such pair can be found, the game is lost.
+    for(i = 0; i < 4; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            if(board[i][j] == board[i][j+1])
+            {
+                return GAME_ONGOING;
+            }
+            if(board[j][i] == board[j+1][i])
+            {
+                return GAME_ONGOING;
+            }
+        }
+    }
+
+    return GAME_LOST;
 }
